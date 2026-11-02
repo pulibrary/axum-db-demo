@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.18.5/.schema/devbox.schema.json",
+  "packages": [
+    "rustup@latest",
+    "git@latest",
+    "postgresql@latest",
+    "diesel-cli@latest",
+    "postgresql.dev"
+  ],
+  "shell": {
+    "init_hook": [
+      "echo 'Welcome to devbox!  Try `devbox run dev`.'"
+    ],
+    "scripts": {
+      "setup": [
+        "test -f \"$PGDATA/PG_VERSION\" || initdb"
+      ],
+      "dev": [
+        "source bin/setup_dev_environment",
+        "devbox services up -b || echo 'services already running'",
+        "devbox run setup",
+        "cargo run"
+      ]
+    }
+  }
+}
