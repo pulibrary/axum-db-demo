@@ -10,6 +10,7 @@ if ! pg_isready ; then
   read PGPORT
   export PGPORT
   devbox services restart
+  test -f "$PGDATA/PG_VERSION" || initdb
 fi
 
 export DATABASE_URL="postgres://localhost:${PGPORT:-5432}/axum-demo"

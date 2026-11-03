@@ -12,11 +12,7 @@
       "echo 'Welcome, try `devbox run migrate` and `devbox run dev`'"
     ],
     "scripts": {
-      "setup": [
-        "test -f \"$PGDATA/PG_VERSION\" || initdb"
-      ],
       "dev": [
-        "devbox run setup",
         "cargo run"
       ],
       "migrate": [
