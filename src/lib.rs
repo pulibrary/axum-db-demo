@@ -11,7 +11,9 @@ const DEFAULT_PORT: &str = "3333";
 
 /// Create a new router for our app
 pub fn router() -> Router {
-    Router::new().route("/diesel", get(|| async { handle_dog_request() }))
+    Router::new()
+    .route("/", get(|| async { "Hello!  Go to /diesel for an example from the db" }))
+    .route("/diesel", get(|| async { handle_dog_request() }))
 }
 
 /// Create a new listener for traffic on the port
