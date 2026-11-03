@@ -5,7 +5,7 @@
 echo "Hello!"
 
 # Make sure we can connect to postgres
-if ! [ pg_isready ]; then
+if ! pg_isready ; then
   echo "What port would you like postgres to listen on?"
   read PGPORT
   export PGPORT
@@ -17,7 +17,7 @@ export DATABASE_URL="postgres://localhost:${PGPORT:-5432}/axum-demo"
 # Make sure we can connect to the axum-demo database
 if ! psql -p ${PGPORT:-5432} axum-demo -c "SELECT 'hello, i can connect to the db' as welcome" 2>/dev/null; then
   echo "Creating db"
-  createdb axum-demo
+  createdb -p ${PGPORT:-5432} axum-demo
 fi
 
 if [[ -z $AXUM_PORT ]]; then

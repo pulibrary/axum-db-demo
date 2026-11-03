@@ -2,6 +2,7 @@
 
 1. Install devbox
 1. `devbox shell`
+1. `source bin/setup_dev_environment`
 1. `diesel migration run`
 1. `devbox run dev`
 1. In your browser, go to localhost:[PORT]/diesel to see a list of dogs taken from the db

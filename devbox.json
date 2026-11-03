@@ -9,7 +9,7 @@
   ],
   "shell": {
     "init_hook": [
-      "source bin/setup_dev_environment"
+      "echo 'Welcome, try `devbox run migrate` and `devbox run dev`'"
     ],
     "scripts": {
       "setup": [
