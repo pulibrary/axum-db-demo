@@ -4,7 +4,16 @@
 
 echo "Hello!"
 
-psql -p ${PGPORT:-5432} axum-demo -c "SELECT 'hello!' as welcome" 2>/dev/null || (echo "What port would you like postgres to listen on?" && read PGPORT)
+if [[psql -p ${PGPORT:-5432} axum-demo -c "SELECT 'hello!' as welcome" 2>/dev/null]]; then
+  echo "in else"
+else
+  echo "What port would you like postgres to listen on?"
+  read PGPORT
+  export PGPORT=$PGPORT
+fi
+
 export DATABASE_URL="postgres://localhost:${PGPORT:-5432}/axum-demo"
+
+createdb axum-demo
 
 $AXUM_PORT || (echo "What port should Axum listen on?" && read AXUM_PORT)

@@ -1,6 +1,7 @@
 ### Setup
 
 1. Install devbox
+1. `source bin/setup_dev_environment`
 1. `devbox shell`
 1. `diesel migration run`
 1. `devbox run dev`
