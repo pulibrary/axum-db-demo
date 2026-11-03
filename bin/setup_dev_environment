@@ -4,7 +4,24 @@
 
 echo "Hello!"
 
-psql -p ${PGPORT:-5432} axum-demo -c "SELECT 'hello!' as welcome" 2>/dev/null || (echo "What port would you like postgres to listen on?" && read PGPORT)
+# Make sure we can connect to postgres
+if ! [ pg_isready ]; then
+  echo "What port would you like postgres to listen on?"
+  read PGPORT
+  export PGPORT
+  devbox services restart
+fi
+
 export DATABASE_URL="postgres://localhost:${PGPORT:-5432}/axum-demo"
 
-$AXUM_PORT || (echo "What port should Axum listen on?" && read AXUM_PORT)
+# Make sure we can connect to the axum-demo database
+if ! psql -p ${PGPORT:-5432} axum-demo -c "SELECT 'hello, i can connect to the db' as welcome" 2>/dev/null; then
+  echo "Creating db"
+  createdb axum-demo
+fi
+
+if [[ -z $AXUM_PORT ]]; then
+  echo "What port should Axum listen on?"
+  read AXUM_PORT
+  export AXUM_PORT
+fi

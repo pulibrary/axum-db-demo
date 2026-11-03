@@ -9,17 +9,18 @@
   ],
   "shell": {
     "init_hook": [
-      "echo 'Welcome to devbox!  Try `devbox run dev`.'"
+      "source bin/setup_dev_environment"
     ],
     "scripts": {
       "setup": [
         "test -f \"$PGDATA/PG_VERSION\" || initdb"
       ],
       "dev": [
-        "source bin/setup_dev_environment",
-        "devbox services up -b || echo 'services already running'",
         "devbox run setup",
         "cargo run"
+      ],
+      "migrate": [
+        "diesel migration run"
       ]
     }
   }
