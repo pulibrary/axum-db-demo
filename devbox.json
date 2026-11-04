@@ -13,9 +13,11 @@
     ],
     "scripts": {
       "dev": [
+        "source bin/setup_dev_environment",
         "cargo run"
       ],
       "migrate": [
+        "source bin/setup_dev_environment",
         "diesel migration run"
       ]
     }
