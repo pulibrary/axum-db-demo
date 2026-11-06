@@ -12,8 +12,11 @@ const DEFAULT_PORT: &str = "3333";
 /// Create a new router for our app
 pub fn router() -> Router {
     Router::new()
-    .route("/", get(|| async { "Hello!  Go to /diesel for an example from the db" }))
-    .route("/diesel", get(|| async { handle_dog_request() }))
+        .route(
+            "/",
+            get(|| async { "Hello!  Go to /diesel for an example from the db" }),
+        )
+        .route("/diesel", get(|| async { handle_dog_request() }))
 }
 
 /// Create a new listener for traffic on the port
@@ -32,4 +35,16 @@ fn listen_port() -> String {
 
 fn listen_address() -> String {
     format!("0.0.0.0:{}", listen_port())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use axum_test::TestServer;
+
+    #[tokio::test]
+    async fn it_has_a_main_page() {
+        let server = TestServer::new(router());
+        assert!(server.get("/").await.text().contains("Hello!"));
+    }
 }
